@@ -1,0 +1,19 @@
+*{
+    box-sizing: border-box;
+    padding: 0;
+    margin: 0;
+}
+.login-form{
+    position: absolute;
+    top:35%;
+    left: 35%;
+    right: 35%;
+    padding: 10px;
+    background-color: #fff;
+    border: 5px solid #969595;
+    border-style: dotted;
+}
+.background-login-page{
+    background: url('../images/494.jpg');
+    background-size: cover;
+}
