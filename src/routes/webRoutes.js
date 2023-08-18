@@ -10,6 +10,7 @@ const routes=express.Router();
  */
 const initWebRoutes=(app)=>{
     routes.get('/',loginController.loadLoginPage);
+    routes.post('/login',loginController.login);
 
     return app.use('/',routes);
 }

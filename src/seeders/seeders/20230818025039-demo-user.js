@@ -12,12 +12,13 @@ module.exports = {
      *   isBetaMember: false
      * }], {});
     */
+    
     await queryInterface.bulkInsert('Users', [
       {
         id_department: '1',
         id_role: '1',
         user_email: 'dainq.hepc@gmail.com',
-        user_password: '123456',
+        user_password: '$2a$10$kzG1II8uovceGkvxd7LlPOxecqqSOhdSr3MXt2KbrGCBRIHOCKksu',
         user_name: "Nguyễn Quốc Đại",
         user_gender: '1',
         user_dob: '09/07/1998',

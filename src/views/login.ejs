@@ -12,13 +12,13 @@
 <body class="background-login-page">
     <div class="container">
         <div class="login-form">
-            <form action="">
+            <form action="/login" method="post">
                 <div class="mb-3 form-floating">
-                    <input type="email" class="form-control" id="txtEmailLogin" placeholder="name@example.com">
+                    <input type="email" class="form-control" id="txtEmailLogin" placeholder="name@example.com" name="user_email">
                     <label for="txtEmailLogin">Email đăng nhập</label>
                 </div>
                 <div class="form-floating mb-3">
-                    <input type="password" class="form-control" id="txtPasswordLogin" placeholder="password">
+                    <input type="password" class="form-control" id="txtPasswordLogin" placeholder="password" name="user_password">
                     <label for="txtPasswordLogin">Mật khẩu</label>
                 </div>
                 <div class="mb-3"><a href="" class="text-decoration-none">Quên mật khẩu?</a></div>
