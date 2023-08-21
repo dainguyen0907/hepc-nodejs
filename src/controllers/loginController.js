@@ -24,7 +24,7 @@ const login=async(req,res)=>{
                 let data = { user_id: resdata.id, user_name: resdata.user_name, user_role: resdata.id_role };
                 let jwt = jwtMiddleware.createJWT(data);
                 res.cookie("jwt", jwt, { httpOnly: true, maxAge: 3600 * 1000 });
-                return res.redirect("/abc");
+                return res.redirect("/home");
             }
             else
             {

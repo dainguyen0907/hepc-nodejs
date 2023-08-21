@@ -1,6 +1,7 @@
 import express from "express";
 import loginController from "../controllers/loginController";
 import manageAccountController from "../controllers/manageAccountController";
+import homeController from "../controllers/homeController";
 import jwt from "../middleware/jwtMiddleware";
 
 const routes=express.Router();
@@ -40,7 +41,7 @@ const initWebRoutes=(app)=>{
         const token=req.cookies.jwt;
         if(token)
         {
-            return res.redirect('/abc');
+            return res.redirect('/home');
         }
         else
         {
@@ -52,7 +53,7 @@ const initWebRoutes=(app)=>{
 
     routes.get('/',authenizationForLogin,loginController.loadLoginPage);
     routes.post('/login',loginController.login);
-    routes.get('/abc',authenization,manageAccountController.loadIndexPage);
+    routes.get('/home',authenization,homeController.loadIndexPage);
     routes.get('/logout',loginController.logout)
     return app.use('/',routes);
 }
