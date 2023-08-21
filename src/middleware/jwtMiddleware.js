@@ -14,14 +14,15 @@ const createJWT = (payload) => {
 
 const verifyJWT=(token)=>{
     let key=process.env.JWTPKEY;
-    let decode=null;
+    let strDecoded=null;
     jwt.verify(token,key,function(err,decoded){
         if(err){
             console.log(err);
             return null;
         }
-        return decoded;
+        strDecoded=decoded;
     }); 
+    return strDecoded;
 }
 
 module.exports={
