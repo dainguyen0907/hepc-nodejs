@@ -3,7 +3,7 @@ require('dotenv').config();
 
 const loadIndexPage=(req,res)=>{
     return res.render('masterPage.ejs',{
-        page:"pages/home",
+        page:"pages/home", 
     });
 }
 

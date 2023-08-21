@@ -29,7 +29,7 @@ const login=async(req,res)=>{
             else
             {
                 console.log('Sai mật khẩu');
-                req.flash('error','Mật khẩu chưa chính xác!');
+                req.flash('error','Mật khẩu chưa chính xác!'); 
                 return res.redirect("/");
             }
         });

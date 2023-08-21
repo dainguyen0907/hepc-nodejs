@@ -52,7 +52,7 @@ const initWebRoutes=(app)=>{
     
 
     routes.get('/',authenizationForLogin,loginController.loadLoginPage);
-    routes.post('/login',loginController.login);
+    routes.post('/login',loginController.login); 
     routes.get('/home',authenization,homeController.loadIndexPage);
     routes.get('/logout',loginController.logout)
     return app.use('/',routes);
