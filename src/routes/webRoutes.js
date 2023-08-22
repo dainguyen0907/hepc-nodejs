@@ -4,6 +4,7 @@ import userController from "../controllers/userController";
 import manageAccountController from "../controllers/manageAccountController";
 import homeController from "../controllers/homeController";
 import jwt from "../middleware/jwtMiddleware";
+import validator from "../validator/validateInfo";
 
 const routes = express.Router();
 
@@ -60,8 +61,9 @@ const initWebRoutes = (app) => {
      * user managemet
      */
     routes.get('/info', authenization, userController.loadIndexPage);
-    routes.post('/info/update', authenization, userController.updateUserInfor);
-
+    routes.post('/info/update', [authenization,validator.validatorUpdateAccount()], userController.updateUserInfor);
+    routes.get('/change-password', authenization, userController.loadChangePasswordPage);
+    routes.post('/change-password', [authenization,validator.validatorForChangePassword()], userController.changePassword);
     return app.use('/', routes);
 }
 

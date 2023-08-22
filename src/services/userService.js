@@ -1,4 +1,6 @@
 import db from "../models/models/index";
+import bcrypt from "bcrypt";
+require('dotenv').config();
 
 const User = db.User;
 const Role = db.Role;
@@ -37,7 +39,6 @@ const findUserById = async (id) => {
 
 const updateUserInfor=async(id,dataUser)=>{
     try{
-
         await User.update({
             id_role:dataUser.id_role,
             id_department:dataUser.id_department,
@@ -56,11 +57,47 @@ const updateUserInfor=async(id,dataUser)=>{
     catch(e){
         return e;
     }
+}
 
+const changePassword=async(id,password)=>{
+    let user=await User.findOne({
+        where: {
+            id:id
+        }
+    });
+    let res={status:true,message:''};
+    bcrypt.compare(password.old,user.user_password,async function(err,result){
+        if(result)
+        {
+            let npassword="";
+            await bcrypt.hash(password.new,process.env.SALTROUND,function(err,hash){
+                npassword=hash;
+            });
+            try{
+                await User.update({
+                    user_password:npassword
+                },{
+                    where: {id:id}
+                })
+            }
+            catch(e){
+                res.status=false;
+                res.message=e;
+                return res;
+            }
+        }
+        else
+        {
+            res.status=false;
+            res.message="Mật khẩu cũ chưa chính xác";
+            return res;
+        }
+    })
 }
 
 module.exports = {
     findUserByEmail,
     findUserById,
     updateUserInfor,
+    changePassword,
 }
