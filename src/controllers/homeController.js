@@ -1,10 +1,10 @@
 import userService from "../services/userService";
+import baseController from "./baseController";
 require('dotenv').config();
 
 const loadIndexPage=(req,res)=>{
-    return res.render('masterPage.ejs',{
-        page:"pages/home", 
-    });
+    let page="pages/home"
+    return baseController.loadMasterPage(req,res,page);
 }
 
 module.exports={
