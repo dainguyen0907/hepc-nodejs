@@ -1,1 +1,66 @@
- 
+<div class="row">
+    <div class="col-xl-12">
+        <%- include ('../message/messagebox') -%>
+        <div class="card easion-card">
+            <div class="card-header">
+                <div class="easion-card-icon">
+                    <i class="fas fa-user"></i>
+                </div>
+                <div class="easion-card-title">Quản trị tài khoản</div>
+            </div>
+            <div class="p-3">
+                <table id="example" class="table table-border" style="width:100%">
+                    <thead class="table-primary">
+                        <tr>
+                            <th>ID</th>
+                            <th>Tài khoản</th>
+                            <th>Tên người dùng</th>
+                            <th>Phòng ban</th>
+                            <th>Phân quyền</th>
+                            <th>Trạng thái</th>
+                            <th>Chức năng</th>
+                        </tr>
+                    </thead>
+                    <tbody>
+                        <% pageData[0].forEach((account,index)=>{ %>
+                            <tr>
+                                <td>
+                                    <%= account.id%>
+                                </td>
+                                <td>
+                                    <%= account.user_email%>
+                                </td>
+                                <td>
+                                    <%= account.user_name%>
+                                </td>
+                                <td>
+                                    <%= account.Department.department_name%>
+                                </td>
+                                <td>
+                                    <%= account.Role.role_name%>
+                                </td>
+                                <% if(account.user_status==1){%>
+                                    <td class="text-success">Đang sử dụng</td>
+                                <% }else{%>
+                                    <td class="text-danger">Vô hiệu hóa</td>
+                                <%}%>
+                                <td>
+                                <% if(account.id!=1){%>
+                                <a class="btn btn-success text-white" title="Cập nhật thông tin">
+                                    <i class="fas fa-user-edit"></i></a>
+                                <a class="btn btn-primary text-white" title="Rest mật khẩu">
+                                    <i class="fas fa-key"></i></a>
+                                <a class="btn btn-danger text-white" title="Xóa người dùng" data-bs-toggle="modal" data-bs-target="#deleteModal"
+                                data-id="<%= account.id %>">
+                                    <i class="fas fa-times"></i></a>
+                                </td>
+                                <%}%>
+                            </tr>
+                            <%});%>
+                    </tbody>
+                </table>
+            </div>
+        </div>
+    </div>
+</div>
+<%- include('../modal/deleteModal') -%>

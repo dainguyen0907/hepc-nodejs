@@ -12,7 +12,7 @@ const validatorForChangePassword=()=>{
     return [
         body("old_password","Mật khẩu cũ không được để trống!").not().isEmpty(),
         body("new_password","Mật khẩu mới không được để trống!").not().isEmpty(),
-        body("new_password","Mật khẩu mới từ 8 đến 50 ký tự").isLength({max:50, min:8}),
+        body("new_password","Mật khẩu mới từ 6 đến 50 ký tự").isLength({max:50, min:6}),
         body("re_password","Xác nhận mật khẩu không được để trống!").not().isEmpty(),
     ];
 }

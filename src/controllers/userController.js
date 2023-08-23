@@ -6,8 +6,9 @@ require('dotenv').config();
 
 const loadIndexPage=async(req,res)=>{
     let page="pages/user_info";
+    let title="Cập nhật thông tin cá nhân";
     let user=await userService.findUserById(req.user_id);
-    return baseController.loadMasterPage(req,res,page,user);
+    return baseController.loadMasterPage(req,res,page,title,user);
 }
 
 const updateUserInfor=async(req,res)=>{
@@ -24,7 +25,7 @@ const updateUserInfor=async(req,res)=>{
         return res.redirect('/info');
     }
     let Qres=await userService.updateUserInfor(req.user_id,dataUser);
-    if(Qres)
+    if(Qres==true)
     {
         req.flash('success','Cập nhật thành công');
         return res.redirect('/info');
@@ -36,10 +37,11 @@ const updateUserInfor=async(req,res)=>{
 
 const loadChangePasswordPage=(req,res)=>{
     let page="pages/user_changePassword";
-    return baseController.loadMasterPage(req,res,page);
+    let title="Đổi mật khẩu";
+    return baseController.loadMasterPage(req,res,page,title);
 }
 
-const changePassword=(req,res)=>{
+const changePassword=async(req,res)=>{
     let password={};
     password.old=req.body.old_password;
     password.new=req.body.new_password;
@@ -49,7 +51,7 @@ const changePassword=(req,res)=>{
     if(!error.isEmpty())
     {
         req.flash('error',error.errors[0].msg);
-        return res.redirect('/info');
+        return res.redirect('/change-password');
     }
 
     if(password.re!=password.new)
@@ -58,6 +60,15 @@ const changePassword=(req,res)=>{
         return res.redirect('/change-password');
     }
     
+    let Qres=await userService.changePassword(req.user_id,password);
+    if(Qres==true){
+        req.flash('success',"Cập nhật tài khoản thành công");
+        return res.redirect('/change-password');
+    }else 
+    {
+        req.flash('error',Qres);
+        return res.redirect('/change-password');
+    }
 
 }
 module.exports={

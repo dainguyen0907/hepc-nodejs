@@ -6,6 +6,7 @@ import homeController from "../controllers/homeController";
 import jwt from "../middleware/jwtMiddleware";
 import validator from "../validator/validateInfo";
 
+
 const routes = express.Router();
 
 /**
@@ -35,6 +36,12 @@ const initWebRoutes = (app) => {
             return res.redirect('/');
         }
     };
+    const adminAuthenization=(req,res,next)=>{
+        if(req.user_role!=1){
+            return res.redirect('/');
+        }
+        return next();
+    }
     /**
      * Kiểm tra cho trang login
      */
@@ -64,6 +71,11 @@ const initWebRoutes = (app) => {
     routes.post('/info/update', [authenization,validator.validatorUpdateAccount()], userController.updateUserInfor);
     routes.get('/change-password', authenization, userController.loadChangePasswordPage);
     routes.post('/change-password', [authenization,validator.validatorForChangePassword()], userController.changePassword);
+    /***
+     * Account management Page
+     */
+    routes.get('/account', [authenization,adminAuthenization], manageAccountController.loadIndexPage);
+    routes.post('/account/delete', [authenization,adminAuthenization], manageAccountController.deleteUser);
     return app.use('/', routes);
 }
 
