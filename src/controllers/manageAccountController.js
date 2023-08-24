@@ -58,6 +58,7 @@ const deleteUser=async(req,res)=>{
     let result=await userService.deleteUserById(id);
     if(result==true)
     {
+        baseController.createHistoryRecord(req.user_id,"Tài khoản có id="+id+" đã bị xóa bởi "+req.user_name);
         req.flash('success','Xóa tài khoản thành công');
         return res.redirect('/account');
     }else{
@@ -94,6 +95,7 @@ const updateUser=async(req,res)=>{
     let Qres=await userService.updateUserInfor(req.body.user_id,dataUser);
     if(Qres==true)
     {
+        baseController.createHistoryRecord(req.user_id,"Tài khoản có id="+req.body.user_id+" đã được cập nhật thông tin bởi "+req.user_name);
         req.flash('success','Cập nhật thành công');
         return res.redirect(req.get('referer'));
     }else{
@@ -138,6 +140,7 @@ const createUser=async(req,res)=>{
     let Qres=await userService.createUser(dataUser);
     if(Qres==true)
     {
+        baseController.createHistoryRecord(req.user_id,req.user_name+" đã thêm một tài khoản mới");
         req.flash('success','Thêm tài khoản thành công');
         return res.redirect('account');
     }else{
@@ -175,6 +178,7 @@ const resetPassword=async(req,res)=>{
     
     let Qres=await userService.resetPassword(req.body.id,password);
     if(Qres==true){
+        baseController.createHistoryRecord(req.user_id,"Tài khoản có id="+req.body.id+" đã được reset mật khẩu bởi "+req.user_name);
         req.flash('success',"Reset mật khẩu thành công");
         return res.redirect("account");
     }else 

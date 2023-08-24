@@ -3,6 +3,7 @@ import loginController from "../controllers/loginController";
 import userController from "../controllers/userController";
 import manageAccountController from "../controllers/manageAccountController";
 import homeController from "../controllers/homeController";
+import historyController from "../controllers/historyController";
 import jwt from "../middleware/jwtMiddleware";
 import validator from "../validator/validateInfo";
 
@@ -81,6 +82,11 @@ const initWebRoutes = (app) => {
     routes.post('/reset-password', [authenization,adminAuthenization, validator.validatorForResetPassword()], manageAccountController.resetPassword);
     routes.post('/account/update', [authenization,adminAuthenization,validator.validatorUpdateAccount()], manageAccountController.updateUser);
     routes.post('/account/delete', [authenization,adminAuthenization], manageAccountController.deleteUser);
+
+    /***
+     * History Page
+     */
+    routes.get('/history', [authenization,adminAuthenization], historyController.loadIndexPage);
 
 
     /***

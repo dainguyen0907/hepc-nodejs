@@ -1,3 +1,4 @@
+import {createHistory} from "../services/historyService";
 require('dotenv').config();
 
 const loadMasterPage=(req,res,page,title,pageData,css,js)=>{
@@ -12,10 +13,18 @@ const loadMasterPage=(req,res,page,title,pageData,css,js)=>{
         js:js,
     });
 }
+
 const load404page=(req,res)=>{
     return res.render('404page.ejs');
 }
+
+const createHistoryRecord=async(id,content)=>{
+    return await createHistory(id,content);
+}
+
+
 module.exports={
     loadMasterPage,
-    load404page
+    load404page,
+    createHistoryRecord,
 };
