@@ -12,10 +12,10 @@ const loadMasterPage=(req,res,page,title,pageData,css,js)=>{
         js:js,
     });
 }
-const changeInfoUser=(req,res)=>{
-    
+const load404page=(req,res)=>{
+    return res.render('404page.ejs');
 }
-
 module.exports={
     loadMasterPage,
+    load404page
 };

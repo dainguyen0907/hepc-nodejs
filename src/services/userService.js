@@ -37,7 +37,6 @@ const findUserById = async (id) => {
     let data = null;
 
     data = await User.findOne({
-        include: [Role, Department],
         where: {
             id: id,
         }
@@ -91,7 +90,7 @@ const changePassword = async (id, password) => {
     if (!match) {
         return "Mật khẩu cũ chưa trùng khớp.";
     } else {
-        let hash=bcrypt.hashSync(password.new,parseInt(process.env.SALTROUND));
+        let hash = await bcrypt.hashSync(password.new, parseInt(process.env.SALTROUND));
         try {
             await User.update({
                 user_password: hash
@@ -108,25 +107,57 @@ const changePassword = async (id, password) => {
 /**
  * Lấy tất cả account 
  */
-const getAllAccount=async()=>{
+const getAllAccount = async () => {
     return await User.findAll({
-        raw:true,
+        raw: true,
         nest: true,
-        include:[Role,Department],
+        include: [Role, Department],
     });
 }
-
-const deleteUserById=async(id)=>{
-    try{
+/**
+ * Xóa account
+ * @param {*} id id account
+ * @returns 
+ */
+const deleteUserById = async (id) => {
+    try {
         await User.destroy({
-            where:{
-                id:id
+            where: {
+                id: id
             }
         });
         return true;
-    }catch(e){
+    } catch (e) {
         return e;
     }
+}
+const createUser = async (user) => {
+    try {
+        await User.create(user);
+        return true;
+    } catch (e) {
+        console.log(e);
+        return e;
+    }
+}
+const resetPassword = async (id, password) => {
+    let user = await User.findOne({
+        where: {
+            id: id
+        },
+    });
+    let hash = await bcrypt.hashSync(password.new, parseInt(process.env.SALTROUND));
+    try {
+        await User.update({
+            user_password: hash
+        }, {
+            where: { id: id }
+        })
+    }
+    catch (e) {
+        return e;
+    }
+    return true;
 }
 module.exports = {
     findUserByEmail,
@@ -135,4 +166,6 @@ module.exports = {
     changePassword,
     getAllAccount,
     deleteUserById,
+    createUser,
+    resetPassword
 }

@@ -1,5 +1,6 @@
 import baseController from "./baseController";
 import userService from "../services/userService";
+import departmentService from "../services/deparmentService";
 import { validationResult } from "express-validator";
 
 require('dotenv').config();
@@ -8,10 +9,12 @@ const loadIndexPage=async(req,res)=>{
     let page="pages/user_info";
     let title="Cập nhật thông tin cá nhân";
     let user=await userService.findUserById(req.user_id);
-    return baseController.loadMasterPage(req,res,page,title,user);
+    let Departments= await departmentService.getAllDepartment();
+    return baseController.loadMasterPage(req,res,page,title,[user,Departments,"editUser","info/update"]);
 }
 
 const updateUserInfor=async(req,res)=>{
+    
     let dataUser={};
     dataUser.user_name=req.body.name_user;
     dataUser.user_address=req.body.address_user;
@@ -69,7 +72,6 @@ const changePassword=async(req,res)=>{
         req.flash('error',Qres);
         return res.redirect('/change-password');
     }
-
 }
 module.exports={
     loadIndexPage,

@@ -7,8 +7,8 @@ $(document).ready(function () {
             "infoEmpty": "Không có thông tin",
             "infoFiltered": "(Lọc từ _MAX_ kết quả)",
             "paginate": {
-                "first": "Trang đầu",
-                "last": "Trang cuối",
+                "first": "<<",
+                "last": ">>",
                 "next": ">",
                 "previous": "<"
             },

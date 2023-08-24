@@ -75,7 +75,20 @@ const initWebRoutes = (app) => {
      * Account management Page
      */
     routes.get('/account', [authenization,adminAuthenization], manageAccountController.loadIndexPage);
+    routes.get('/account/:id', [authenization,adminAuthenization], manageAccountController.loadUserDetail);
+    routes.get('/account-add', [authenization,adminAuthenization], manageAccountController.loadCreateUser);
+    routes.post('/account-add', [authenization,adminAuthenization, validator.validatorCreateAccount()], manageAccountController.createUser);
+    routes.post('/reset-password', [authenization,adminAuthenization, validator.validatorForResetPassword()], manageAccountController.resetPassword);
+    routes.post('/account/update', [authenization,adminAuthenization,validator.validatorUpdateAccount()], manageAccountController.updateUser);
     routes.post('/account/delete', [authenization,adminAuthenization], manageAccountController.deleteUser);
+
+
+    /***
+     * Set 404 page
+     */
+    routes.get('*',function(req,res){
+        res.render('404page.ejs');
+    })
     return app.use('/', routes);
 }
 

@@ -1,4 +1,8 @@
 <div class="row">
+    <div class="col-xl-3">
+        <a href="/account-add" class="btn btn-primary mb-3">Thêm người dùng mới</a>
+    </div>
+    
     <div class="col-xl-12">
         <%- include ('../message/messagebox') -%>
         <div class="card easion-card">
@@ -45,16 +49,17 @@
                                     <td class="text-danger">Vô hiệu hóa</td>
                                 <%}%>
                                 <td>
-                                <% if(account.id!=1){%>
-                                <a class="btn btn-success text-white" title="Cập nhật thông tin">
-                                    <i class="fas fa-user-edit"></i></a>
-                                <a class="btn btn-primary text-white" title="Rest mật khẩu">
-                                    <i class="fas fa-key"></i></a>
-                                <a class="btn btn-danger text-white" title="Xóa người dùng" data-bs-toggle="modal" data-bs-target="#deleteModal"
-                                data-id="<%= account.id %>">
-                                    <i class="fas fa-times"></i></a>
+                                    <%if(account.id!=1){%>
+                                    <a class="btn btn-success text-white" title="Cập nhật thông tin" href="account/<%= account.id%>">
+                                        <i class="fas fa-user-edit"></i></a>
+                                    <a class="btn btn-primary text-white" title="Rest mật khẩu" data-bs-toggle="modal" data-bs-target="#resetPasswordModal"
+                                    data-id="<%= account.id%>">
+                                        <i class="fas fa-key"></i></a>
+                                    <a class="btn btn-danger text-white" title="Xóa người dùng" data-bs-toggle="modal" data-bs-target="#deleteModal"
+                                    data-id="<%= account.id %>">
+                                        <i class="fas fa-times"></i></a>
+                                    <%}%>    
                                 </td>
-                                <%}%>
                             </tr>
                             <%});%>
                     </tbody>
@@ -64,3 +69,4 @@
     </div>
 </div>
 <%- include('../modal/deleteModal') -%>
+<%- include('../modal/resetPasswordModal') -%>
