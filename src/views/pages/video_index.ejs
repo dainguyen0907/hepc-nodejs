@@ -1,0 +1,62 @@
+<div class="row">
+    <div class="col-xl-3">
+        <a href="/" class="btn btn-primary mb-3" data-bs-toggle="modal" data-bs-target="#createvideoModal">Thêm video mới</a>
+    </div>
+    <div class="col-xl-12">
+        <%- include ('../message/messagebox') -%>
+        <div class="card easion-card">
+            <div class="card-header">
+                <div class="easion-card-icon">
+                    <i class="fas fa-user"></i>
+                </div>
+                <div class="easion-card-title">Quản trị video clip giới thiệu</div>
+            </div>
+            <div class="p-3">
+                <table id="example" class="table table-border" style="width:100%">
+                    <thead class="table-primary">
+                        <tr>
+                            <th>ID</th>
+                            <th>Người đăng</th>
+                            <th>Tên video</th>
+                            <th>Trạng thái</th>
+                            <th>Cập nhật lần cuối</th>
+                            <th>Chức năng</th>
+                        </tr>
+                    </thead>
+                    <tbody>
+                        <% pageData[0].forEach((video,index)=>{ %>
+                            <tr>
+                                <td>
+                                    <%= video.id%>
+                                </td>
+                                <td>
+                                    <%= video.User.user_name%>
+                                </td>
+                                <td>
+                                    <%= video.video_name%>
+                                </td>
+                                <% if(video.video_status==1){%>
+                                    <td class="text-success">Đang sử dụng</td>
+                                <% }else{%>
+                                    <td class="text-danger">Vô hiệu hóa</td>
+                                <%}%>
+                                <td>
+                                    <%= video.updatedAt.getDate()%>/<%= video.updatedAt.getMonth()%>/<%= video.updatedAt.getFullYear()%> -<%= 
+                                    video.updatedAt.getHours()%>:<%= video.updatedAt.getMinutes()%>:<%= video.updatedAt.getSeconds()%>
+                                </td>
+                                <td>
+                                    <a class="btn btn-success text-white" title="Cập nhật video">
+                                        <i class="fas fa-edit"></i></a>
+                                    <a class="btn btn-danger text-white" title="Xóa phòng ban" data-bs-toggle="modal" data-bs-target="#deleteModal"
+                                    data-id="<%= video.id %>">
+                                        <i class="fas fa-times"></i></a>
+                                </td>
+                            </tr>
+                            <%});%>
+                    </tbody>
+                </table>
+            </div>
+        </div>
+    </div>
+</div>
+<%- include('../modal/deleteModal') -%>

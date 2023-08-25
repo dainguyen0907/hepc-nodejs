@@ -131,6 +131,11 @@ const deleteUserById = async (id) => {
         return e;
     }
 }
+/**
+ * Tạo người dùng mới
+ * @param {*} user thông tin người dùng
+ * @returns 
+ */
 const createUser = async (user) => {
     try {
         await User.create(user);
@@ -140,16 +145,18 @@ const createUser = async (user) => {
         return e;
     }
 }
+/**
+ * Reset mật khẩu cho người dùng
+ * @param {*} id id người dùng
+ * @param {*} password Mật khẩu mới
+ * @returns 
+ */
 const resetPassword = async (id, password) => {
-    let user = await User.findOne({
-        where: {
-            id: id
-        },
-    });
     let hash = await bcrypt.hashSync(password.new, parseInt(process.env.SALTROUND));
     try {
         await User.update({
-            user_password: hash
+            user_password: hash,
+            updateAt:new Date()
         }, {
             where: { id: id }
         })

@@ -1,0 +1,63 @@
+<div class="row">
+    <div class="col-xl-3">
+        <a href="" class="btn btn-primary mb-3" data-bs-toggle="modal" data-bs-target="#updateDepartmentModal">Thêm phòng ban mới</a>
+    </div>
+    
+    <div class="col-xl-12">
+        <%- include ('../message/messagebox') -%>
+        <div class="card easion-card">
+            <div class="card-header">
+                <div class="easion-card-icon">
+                    <i class="fas fa-user"></i>
+                </div>
+                <div class="easion-card-title">Quản trị phòng ban</div>
+            </div>
+            <div class="p-3">
+                <table id="example" class="table table-border" style="width:100%">
+                    <thead class="table-primary">
+                        <tr>
+                            <th>ID</th>
+                            <th>Tên phòng ban</th>
+                            <th>Trạng thái</th>
+                            <th>Cập nhật lần cuối</th>
+                            <th>Chức năng</th>
+                        </tr>
+                    </thead>
+                    <tbody>
+                        <% pageData[0].forEach((department,index)=>{ %>
+                            <tr>
+                                <td>
+                                    <%= department.id%>
+                                </td>
+                                <td>
+                                    <%= department.department_name%>
+                                </td>
+                                <% if(department.department_status==1){%>
+                                    <td class="text-success">Đang sử dụng</td>
+                                <% }else{%>
+                                    <td class="text-danger">Vô hiệu hóa</td>
+                                <%}%>
+                                <td>
+                                    <%= department.updatedAt.getDate()%>/<%= department.updatedAt.getMonth()%>/<%= department.updatedAt.getFullYear()%> -<%= 
+                                    department.updatedAt.getHours()%>:<%= department.updatedAt.getMinutes()%>:<%= department.updatedAt.getSeconds()%>
+                                </td>
+                                <td>
+                                    <a class="btn btn-success text-white" title="Cập nhật phòng ban" data-bs-toggle="modal" data-bs-target="#updateDepartmentModal"
+                                    data-name="<%= department.department_name%>" data-status="<%= department.department_status%>" data-id="<%= department.id%>"
+                                    >
+                                        <i class="fas fa-edit"></i></a>
+                                    <a class="btn btn-danger text-white" title="Xóa phòng ban" data-bs-toggle="modal" data-bs-target="#deleteModal"
+                                    data-id="<%= department.id %>">
+                                        <i class="fas fa-times"></i></a>
+                                </td>
+                            </tr>
+                            <%});%>
+                    </tbody>
+                </table>
+            </div>
+        </div>
+    </div>
+</div>
+<%- include('../modal/department_update') -%>
+<%- include('../modal/department_update') -%>
+<%- include('../modal/deleteModal') -%>

@@ -10,7 +10,7 @@ const loadIndexPage=async(req,res)=>{
     let page="pages/account_index";
     let title="Quản lí tài khoản";
     let css=["https://cdn.datatables.net/v/bs5/dt-1.13.6/datatables.min.css"];
-    let js=["https://cdn.datatables.net/v/bs5/jq-3.7.0/dt-1.13.6/datatables.min.js",'/js/initDatatable.js','/js/modal_initDelete.js'];
+    let js=["https://cdn.datatables.net/v/bs5/jq-3.7.0/dt-1.13.6/datatables.min.js",'/js/initDatatable.js','/js/modal_init.js'];
     let dataAccount=await userService.getAllAccount();
     let modalProperties={title:"Xóa tài khoản",objectName:"người dùng",formAction:"/account/delete"}
     let pageData=[dataAccount,null,modalProperties];

@@ -32,9 +32,16 @@ const validatorForResetPassword=()=>{
         body("re_password","Xác nhận mật khẩu không được để trống!").not().isEmpty(),
     ];
 }
+const validatorForCreateDepartment=()=>{
+    return [
+        body("department_name","Tên phòng ban không được để trống").not().isEmpty(),
+        body("department_name","Tên phòng ban không quá 200 ký tự").isLength({max:200}),
+    ]
+}
 module.exports={
     validatorUpdateAccount,
     validatorForChangePassword,
     validatorCreateAccount,
-    validatorForResetPassword
+    validatorForResetPassword,
+    validatorForCreateDepartment
 }

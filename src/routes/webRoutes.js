@@ -6,6 +6,8 @@ import homeController from "../controllers/homeController";
 import historyController from "../controllers/historyController";
 import jwt from "../middleware/jwtMiddleware";
 import validator from "../validator/validateInfo";
+import deparmentController from "../controllers/departmentController";
+import videoController from "../controllers/videoController";
 
 
 const routes = express.Router();
@@ -88,7 +90,18 @@ const initWebRoutes = (app) => {
      */
     routes.get('/history', [authenization,adminAuthenization], historyController.loadIndexPage);
 
+    /***
+     * Department management Page
+     */
+    routes.get('/department',[authenization,adminAuthenization], deparmentController.loadIndexPage);
+    routes.post('/department/add',[authenization,adminAuthenization,validator.validatorForCreateDepartment()], deparmentController.createDepartment);
+    routes.post('/department/update',[authenization,adminAuthenization,validator.validatorForCreateDepartment()], deparmentController.updateDepartment);
+    routes.post('/department/delete',[authenization,adminAuthenization], deparmentController.deleteDepartment);
 
+    /***
+     * Video management Page
+     */
+    routes.get('/video',[authenization,adminAuthenization], videoController.loadIndexPage);
     /***
      * Set 404 page
      */

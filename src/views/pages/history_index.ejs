@@ -24,7 +24,8 @@
                                     <%= record.id_user%>
                                 </td>
                                 <td>
-                                    <%= record.createdAt%>
+                                    <%= record.createdAt.getDate()%>/<%= record.createdAt.getMonth()%>/<%= record.createdAt.getFullYear()%> -<%= 
+                                    record.createdAt.getHours()%>:<%= record.createdAt.getMinutes()%>:<%= record.createdAt.getSeconds()%>
                                 </td>
                                 <td>
                                     <%= record.history_content%>

@@ -1,6 +1,6 @@
 <div class="row">
     <div class="col-xl-3">
-        <a href="/account-add" class="btn btn-primary mb-3">Thêm người dùng mới</a>
+        <a onclick="window.open('account-add','update','width=1000,height=500')" class="btn btn-primary mb-3 text-white">Thêm người dùng mới</a>
     </div>
     
     <div class="col-xl-12">
@@ -22,6 +22,7 @@
                             <th>Phòng ban</th>
                             <th>Phân quyền</th>
                             <th>Trạng thái</th>
+                            <th>Cập nhật lần cuối</th>
                             <th>Chức năng</th>
                         </tr>
                     </thead>
@@ -49,8 +50,12 @@
                                     <td class="text-danger">Vô hiệu hóa</td>
                                 <%}%>
                                 <td>
+                                    <%= account.updatedAt.getDate()%>/<%= account.updatedAt.getMonth()%>/<%= account.updatedAt.getFullYear()%> -<%= 
+                                    account.updatedAt.getHours()%>:<%= account.updatedAt.getMinutes()%>:<%= account.updatedAt.getSeconds()%>
+                                </td>
+                                <td>
                                     <%if(account.id!=1){%>
-                                    <a class="btn btn-success text-white" title="Cập nhật thông tin" href="account/<%= account.id%>">
+                                    <a class="btn btn-success text-white" title="Cập nhật thông tin" onclick="window.open('account/<%= account.id%>','update','width=1000,height=500')">
                                         <i class="fas fa-user-edit"></i></a>
                                     <a class="btn btn-primary text-white" title="Rest mật khẩu" data-bs-toggle="modal" data-bs-target="#resetPasswordModal"
                                     data-id="<%= account.id%>">
