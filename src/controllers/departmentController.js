@@ -24,7 +24,7 @@ const createDepartment=async(req,res)=>{
         }
         return res.redirect('/');
     }
-    let error=await validationResult(req);
+    let error= validationResult(req);
     if(!error.isEmpty())
     {
         req.flash('error',error.errors[0].msg);
@@ -59,7 +59,7 @@ const updateDepartment=async(req,res)=>{
         }
         return res.redirect('/');
     }
-    let error=await validationResult(req);
+    let error= validationResult(req);
     if(!error.isEmpty())
     {
         req.flash('error',error.errors[0].msg);

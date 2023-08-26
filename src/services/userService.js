@@ -18,8 +18,7 @@ Department.hasMany(User, { foreignKey: 'id' });
  * Chức năng: Đăng nhập
  */
 const findUserByEmail = async (email) => {
-    let data = null;
-    data = await User.findOne({
+    let data = await User.findOne({
         where: {
             user_email: email
         }

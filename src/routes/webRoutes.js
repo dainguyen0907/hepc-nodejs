@@ -102,6 +102,10 @@ const initWebRoutes = (app) => {
      * Video management Page
      */
     routes.get('/video',[authenization,adminAuthenization], videoController.loadIndexPage);
+    routes.get('/video/:id',[authenization,adminAuthenization], videoController.loadVideoDetailPage);
+    routes.post('/video/add',[authenization,adminAuthenization], videoController.createVideo);
+    routes.post('/video/delete',[authenization,adminAuthenization], videoController.deleteVideo);
+    routes.post('/video/update',[authenization,adminAuthenization], videoController.updateVideo);
     /***
      * Set 404 page
      */

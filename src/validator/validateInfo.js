@@ -38,10 +38,18 @@ const validatorForCreateDepartment=()=>{
         body("department_name","Tên phòng ban không quá 200 ký tự").isLength({max:200}),
     ]
 }
+const validatorForCreateVideo=()=>{
+    return [
+        body("video_name","Tên video không được để trống").not().isEmpty(),
+        body("video_name","Tên video không quá 500 ký tự").isLength({max:500}),
+        body("video_content","Mã nhúng không được để trống").not().isEmpty(),
+    ]
+}
 module.exports={
     validatorUpdateAccount,
     validatorForChangePassword,
     validatorCreateAccount,
     validatorForResetPassword,
-    validatorForCreateDepartment
+    validatorForCreateDepartment,
+    validatorForCreateVideo
 }
