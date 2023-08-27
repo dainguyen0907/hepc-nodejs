@@ -1,0 +1,66 @@
+<div class="row">
+    <div class="col-xl-3">
+        <a href="/" class="btn btn-primary mb-3" data-bs-toggle="modal" data-bs-target="#createbannerModal">Thêm banner mới</a>
+    </div>
+    <div class="col-xl-12">
+        <%- include ('../message/messagebox') -%>
+        <div class="card easion-card">
+            <div class="card-header">
+                <div class="easion-card-icon">
+                    <i class="fas fa-user"></i>
+                </div>
+                <div class="easion-card-title">Quản trị Banner quảng cáo</div>
+            </div>
+            <div class="p-3">
+                <table id="example" class="table table-border" style="width:100%">
+                    <thead class="table-primary">
+                        <tr>
+                            <th>ID</th>
+                            <th>Ảnh banner</th>
+                            <th>Người đăng</th>
+                            <th>Trạng thái</th>
+                            <th>Cập nhật lần cuối</th>
+                            <th>Chức năng</th>
+                        </tr>
+                    </thead>
+                    <tbody>
+                        <% pageData[0].forEach((banner,index)=>{ %>
+                            <tr>
+                                <td>
+                                    <%= banner.id%>
+                                </td>
+                                <td>
+                                    <img src="<%=banner.banner_content%>" width="150px">
+                                </td>
+                                <td>
+                                    <%= banner.User.user_name%>
+                                </td>
+                                
+                                <% if(banner.banner_status==1){%>
+                                    <td class="text-success">Đang sử dụng</td>
+                                <% }else{%>
+                                    <td class="text-danger">Vô hiệu hóa</td>
+                                <%}%>
+                                <td>
+                                    <%= banner.updatedAt.getDate()%>/<%= banner.updatedAt.getMonth()%>/<%= banner.updatedAt.getFullYear()%> -<%= 
+                                    banner.updatedAt.getHours()%>:<%= banner.updatedAt.getMinutes()%>:<%= banner.updatedAt.getSeconds()%>
+                                </td>
+                                <td>
+                                    <a class="btn btn-success text-white" title="Cập nhật banner" data-bs-toggle="modal" data-bs-target="#updatebannerModal"
+                                    data-id="<%= banner.id%>" data-content="<%= banner.banner_content%>" data-status="<%= banner.banner_status%>">
+                                        <i class="fas fa-edit"></i></a>
+                                    <a class="btn btn-danger text-white" title="Xóa phòng ban" data-bs-toggle="modal" data-bs-target="#deleteModal"
+                                    data-id="<%= banner.id %>">
+                                        <i class="fas fa-times"></i></a>
+                                </td>
+                            </tr>
+                            <%});%>
+                    </tbody>
+                </table>
+            </div>
+        </div>
+    </div>
+</div>
+<%- include('../modal/banner_create') -%>
+<%- include('../modal/banner_update') -%>
+<%- include('../modal/deleteModal') -%>

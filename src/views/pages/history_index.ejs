@@ -12,8 +12,8 @@
                     <thead class="table-primary">
                         <tr>
                             <th>id người<br/>cập nhật</th>
-                            <th>Ngày cập nhật</th>
                             <th>Nội dung</th>
+                            <th>Ngày cập nhật</th>
                             
                         </tr>
                     </thead>
@@ -24,11 +24,11 @@
                                     <%= record.id_user%>
                                 </td>
                                 <td>
-                                    <%= record.createdAt.getDate()%>/<%= record.createdAt.getMonth()%>/<%= record.createdAt.getFullYear()%> -<%= 
-                                    record.createdAt.getHours()%>:<%= record.createdAt.getMinutes()%>:<%= record.createdAt.getSeconds()%>
+                                    <%= record.history_content%>
                                 </td>
                                 <td>
-                                    <%= record.history_content%>
+                                    <%= record.createdAt.getDate()%>/<%= record.createdAt.getMonth()%>/<%= record.createdAt.getFullYear()%> -<%= 
+                                    record.createdAt.getHours()%>:<%= record.createdAt.getMinutes()%>:<%= record.createdAt.getSeconds()%>
                                 </td>
                             </tr>
                             <%});%>

@@ -8,6 +8,7 @@ import jwt from "../middleware/jwtMiddleware";
 import validator from "../validator/validateInfo";
 import deparmentController from "../controllers/departmentController";
 import videoController from "../controllers/videoController";
+import bannerController from "../controllers/bannerController";
 
 
 const routes = express.Router();
@@ -103,9 +104,17 @@ const initWebRoutes = (app) => {
      */
     routes.get('/video',[authenization,adminAuthenization], videoController.loadIndexPage);
     routes.get('/video/:id',[authenization,adminAuthenization], videoController.loadVideoDetailPage);
-    routes.post('/video/add',[authenization,adminAuthenization], videoController.createVideo);
+    routes.post('/video/add',[authenization,adminAuthenization,validator.validatorForCreateVideo()], videoController.createVideo);
     routes.post('/video/delete',[authenization,adminAuthenization], videoController.deleteVideo);
-    routes.post('/video/update',[authenization,adminAuthenization], videoController.updateVideo);
+    routes.post('/video/update',[authenization,adminAuthenization,validator.validatorForCreateVideo()], videoController.updateVideo);
+
+     /***
+     * Banner management Page
+     */
+     routes.get('/banner',[authenization,adminAuthenization], bannerController.loadIndexPage);
+     routes.post('/banner/add',[authenization,adminAuthenization,validator.validatorForCreateBanner()], bannerController.createBanner);
+     routes.post('/banner/delete',[authenization,adminAuthenization], bannerController.deleteBanner);
+     routes.post('/banner/update',[authenization,adminAuthenization,validator.validatorForCreateBanner()], bannerController.updateBanner);
     /***
      * Set 404 page
      */

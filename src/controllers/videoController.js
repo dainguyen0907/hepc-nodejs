@@ -7,7 +7,7 @@ const loadIndexPage=async(req,res)=>{
     let datavideo=await videoService.getAllVideo();
     let page="pages/video_index.ejs";
     let title="Quản lí video quảng cáo";
-    let modal={title:"Xóa video",formAction:"video/delete"}
+    let modal={title:"Xóa video",objectName:"video",formAction:"video/delete"}
     let pageData=[datavideo,null,modal];
     let css=["https://cdn.datatables.net/v/bs5/dt-1.13.6/datatables.min.css"];
     let js=["https://cdn.datatables.net/v/bs5/jq-3.7.0/dt-1.13.6/datatables.min.js",'/js/initDatatable.js','/js/modal_init.js'];
@@ -52,6 +52,7 @@ const createVideo=async(req,res)=>{
     let Qres=await videoService.createVideo(video);
     if(Qres==true)
     {
+        baseController.createHistoryRecord(req.user_id,req.user_name+" đã thêm một video mới");
         req.flash('success',"Đăng tải video thành công");
         return res.redirect("/video");
     }else{
@@ -85,6 +86,7 @@ const updateVideo=async(req,res)=>{
     let Qres=await videoService.updateVideo(id,video);
     if(Qres==true)
     {
+        baseController.createHistoryRecord(req.user_id,"Video có id="+id+" đã được cập nhật thông tin bởi "+req.user_name);
         req.flash('success',"Cập nhật video thành công");
         return res.redirect("/video/"+id);
     }else{
@@ -106,6 +108,7 @@ const deleteVideo=async(req,res)=>{
     let Qres=await videoService.deleteVideo(id);
     if(Qres==true)
     {
+        baseController.createHistoryRecord(req.user_id,"Video có id="+id+" đã bị xóa bởi "+req.user_name);
         req.flash('success',"Xóa video thành công");
         return res.redirect("/video");
     }else{

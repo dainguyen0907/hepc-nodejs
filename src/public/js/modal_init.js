@@ -43,4 +43,25 @@ $(document).ready(function () {
     });
   }
 
+  var updateBannerModal = document.getElementById('updatebannerModal')
+  if (updateBannerModal) {
+    updateBannerModal.addEventListener('show.bs.modal', function (event) {
+      var button = event.relatedTarget
+      var id = button.getAttribute('data-id')
+      var content = button.getAttribute('data-content')
+      var status = button.getAttribute('data-status')
+      var object_id = updateBannerModal.querySelector('#object_id')
+      var object_content = updateBannerModal.querySelector("#banner_content")
+      var object_status_true = updateBannerModal.querySelector("#banner_status_true")
+      var object_status_false = updateBannerModal.querySelector("#banner_status_false")
+      object_id.value = id
+      object_content.value=content
+      if (status == 1) {
+        object_status_true.setAttribute('checked', 'checked')
+      } else {
+        object_status_false.setAttribute('checked', 'checked')
+      }
+    });
+  }
+
 });
