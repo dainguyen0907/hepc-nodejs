@@ -1,0 +1,48 @@
+<div class="modal fade" id="updateCatalogueModal" data-bs-backdrop="static" data-bs-keyboard="false" tabindex="-1"
+    aria-labelledby="staticBackdropLabel" aria-hidden="true">
+    <div class="modal-dialog">
+        <div class="modal-content">
+            <div class="modal-header">
+                <h5 class="modal-title" id="staticBackdropLabel">Tạo chuyên mục mới</h5>
+                <button type="button" class="btn-close" data-bs-dismiss="modal" aria-label="Close"></button>
+            </div>
+            <form action="catalogue/update" method="POST">
+                <div class="modal-body">
+                    <input type="hidden" id="object_id" name="id">
+                    <div class="mb-3">
+                        <label>Tên chuyên mục</label>
+                        <input type="text" class="form-control" name="catalogue_name" id="catalogue_name" required>
+                    </div>
+                    <div class="mb-3">
+                        <label>Phòng ban</label>
+                        <select name="catalogue_department" class="form-control" id="catalogue_department">
+                            <%pageData[1].forEach((department,index)=>{%>
+                            <option value="<%=department.id%>"><%=department.department_name%></option>
+                            <%});%>
+                        </select>
+                    </div>
+                    <div class="mb-3">
+                        <label> Trạng thái</label>
+                        <div class="form-check">
+                            <input class="form-check-input" type="radio" name="catalogue_status" value="1"
+                                id="catalogue_status_true">
+                            <label class="form-check-label" for="flexRadioDefault1">
+                                Đang hoạt động
+                            </label>
+                        </div>
+                        <div class="form-check">
+                            <input class="form-check-input" type="radio" name="catalogue_status" value="0"
+                                id="catalogue_status_false">
+                            <label class="form-check-label" for="flexRadioDefault2">
+                                Vô hiệu hóa
+                            </label>
+                        </div>
+                    </div>
+                </div>
+                <div class="modal-footer">
+                    <button type="submit" class="btn btn-primary">Thêm</button>
+                </div>
+            </form>
+        </div>
+    </div>
+</div>

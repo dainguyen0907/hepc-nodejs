@@ -1,0 +1,61 @@
+<div class="row">
+    <div class="col-xl-12">
+        <%- include ('../message/messagebox') -%>
+        <div class="card easion-card">
+            <div class="card-header">
+                <div class="easion-card-icon">
+                    <i class="fas fa-user"></i>
+                </div>
+                <div class="easion-card-title">Quản trị hình ảnh</div>
+            </div>
+            <div class="p-3">
+                <table id="example" class="table table-border" style="width:100%">
+                    <thead class="table-primary">
+                        <tr>
+                            <th>ID</th>
+                            <th>Phòng ban</th>
+                            <th>Người đăng</th>
+                            <th>Hình ảnh</th>
+                            <th>Trạng thái</th>
+                            <th>Tình trạng</th>
+                            <th>Chức năng</th>
+                        </tr>
+                    </thead>
+                    <tbody>
+                        <% pageData[0].forEach((photo,index)=>{ %>
+                            <tr>
+                                <td>
+                                    <%= photo.id%>
+                                </td>
+                                <td>
+                                    <%= photo.Department.department_name%>
+                                </td>
+                                <td>
+                                    <%= photo.User.user_name%>
+                                </td>
+                                <td>
+                                    <img src="<%=photo.photo_content%>" width="250px">
+                                </td>
+                                <% if(photo.photo_status==1){%>
+                                    <td class="text-success">Đang sử dụng</td>
+                                <% }else{%>
+                                    <td class="text-danger">Vô hiệu hóa</td>
+                                <%}%>
+                                <% if(photo.photo_censor==1){%>
+                                    <td class="text-success">Đã duyệt</td>
+                                <% }else{%>
+                                    <td class="text-danger">Chưa duyệt</td>
+                                <%}%>
+                                <td>
+                                    <a class="btn btn-danger text-white" title="Xóa hình ảnh" data-bs-toggle="modal" data-bs-target="#deleteModal"
+                                    data-id="<%= photo.id %>">
+                                        <i class="fas fa-times"></i></a>
+                                </td>
+                            </tr>
+                            <%});%>
+                    </tbody>
+                </table>
+            </div>
+        </div>
+    </div>
+</div>

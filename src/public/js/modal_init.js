@@ -63,5 +63,27 @@ $(document).ready(function () {
       }
     });
   }
-
+  var updateCatalogueModal = document.getElementById('updateCatalogueModal')
+  if (updateCatalogueModal) {
+    updateCatalogueModal.addEventListener('show.bs.modal', function (event) {
+      var button = event.relatedTarget
+      var id = button.getAttribute('data-id')
+      var name = button.getAttribute('data-name')
+      var department = button.getAttribute('data-department')
+      var status = button.getAttribute('data-status')
+      var object_id = updateCatalogueModal.querySelector('#object_id')
+      var object_name = updateCatalogueModal.querySelector("#catalogue_name")
+      var object_department = updateCatalogueModal.querySelector("#catalogue_department")
+      var object_status_true = updateCatalogueModal.querySelector("#catalogue_status_true")
+      var object_status_false = updateCatalogueModal.querySelector("#catalogue_status_false")
+      object_id.value = id
+      object_name.value=name
+      object_department.value=department
+      if (status == 1) {
+        object_status_true.setAttribute('checked', 'checked')
+      } else {
+        object_status_false.setAttribute('checked', 'checked')
+      }
+    });
+  }
 });

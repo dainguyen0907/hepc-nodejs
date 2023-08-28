@@ -50,6 +50,12 @@ const validatorForCreateBanner=()=>{
         body("banner_content","Đường link banner không được để trống").trim().not().isEmpty(),
     ]
 }
+const validatorForCreateCatalogue=()=>{
+    return [
+        body("catalogue_name","Tên chuyên mục không được để trống").trim().not().isEmpty(),
+        body("catalogue_name","Tên chuyên mục không quá 200 ký tự").isLength({max:200}),
+    ]
+}
 module.exports={
     validatorUpdateAccount,
     validatorForChangePassword,
@@ -57,5 +63,6 @@ module.exports={
     validatorForResetPassword,
     validatorForCreateDepartment,
     validatorForCreateVideo,
-    validatorForCreateBanner
+    validatorForCreateBanner,
+    validatorForCreateCatalogue
 }

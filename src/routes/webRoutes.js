@@ -9,7 +9,8 @@ import validator from "../validator/validateInfo";
 import deparmentController from "../controllers/departmentController";
 import videoController from "../controllers/videoController";
 import bannerController from "../controllers/bannerController";
-
+import photoController from "../controllers/photoController";
+import catalogueController from "../controllers/catalogueController";
 
 const routes = express.Router();
 
@@ -34,6 +35,7 @@ const initWebRoutes = (app) => {
             req.user_id = data.user_id;
             req.user_name = data.user_name;
             req.user_role = data.user_role;
+            req.id_department = data.id_department;
             return next();
         } catch (e) {
             req.flash('error', 'Lỗi kiểm tra JWT!');
@@ -115,6 +117,22 @@ const initWebRoutes = (app) => {
      routes.post('/banner/add',[authenization,adminAuthenization,validator.validatorForCreateBanner()], bannerController.createBanner);
      routes.post('/banner/delete',[authenization,adminAuthenization], bannerController.deleteBanner);
      routes.post('/banner/update',[authenization,adminAuthenization,validator.validatorForCreateBanner()], bannerController.updateBanner);
+
+      /***
+     * Photo management Page
+     */
+      routes.get('/photo',[authenization,adminAuthenization], photoController.loadIndexPage);
+    //   routes.post('/photo/add',[authenization,adminAuthenization,validator.validatorForCreatephoto()], photoController.createphoto);
+    //   routes.post('/photo/delete',[authenization,adminAuthenization], photoController.deletephoto);
+    //   routes.post('/photo/update',[authenization,adminAuthenization,validator.validatorForCreatephoto()], photoController.updatephoto);
+     /***
+     * Catalogue management Page
+     */
+    routes.get('/catalogue',[authenization,adminAuthenization], catalogueController.loadIndexPage);
+    routes.post('/catalogue/add',[authenization,adminAuthenization,validator.validatorForCreateCatalogue()], catalogueController.createCatalogue);
+    routes.post('/catalogue/delete',[authenization,adminAuthenization], catalogueController.deleteCatalogue);
+    routes.post('/catalogue/update',[authenization,adminAuthenization,validator.validatorForCreateCatalogue()], catalogueController.updateCatalogue);
+     
     /***
      * Set 404 page
      */
