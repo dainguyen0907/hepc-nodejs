@@ -35,15 +35,21 @@ const initWebRoutes = (app) => {
             req.user_id = data.user_id;
             req.user_name = data.user_name;
             req.user_role = data.user_role;
-            req.id_department = data.id_department;
+            req.id_department = data.user_department;
             return next();
         } catch (e) {
-            req.flash('error', 'Lỗi kiểm tra JWT!');
+            req.flash('error', e);
             return res.redirect('/');
         }
     };
     const adminAuthenization=(req,res,next)=>{
         if(req.user_role!=1){
+            return res.redirect('/');
+        }
+        return next();
+    }
+    const censorAuthenization=(req,res,next)=>{
+        if(req.user_role!=1&&req.user_role!=2){
             return res.redirect('/');
         }
         return next();
@@ -122,9 +128,12 @@ const initWebRoutes = (app) => {
      * Photo management Page
      */
       routes.get('/photo',[authenization,adminAuthenization], photoController.loadIndexPage);
-    //   routes.post('/photo/add',[authenization,adminAuthenization,validator.validatorForCreatephoto()], photoController.createphoto);
-    //   routes.post('/photo/delete',[authenization,adminAuthenization], photoController.deletephoto);
-    //   routes.post('/photo/update',[authenization,adminAuthenization,validator.validatorForCreatephoto()], photoController.updatephoto);
+      routes.post('/photo/delete',[authenization,censorAuthenization], photoController.deletePhotoByCensor);
+      routes.post('/photo/update',[authenization,censorAuthenization], photoController.updatePhoto);
+      routes.get('/user/photo',[authenization], photoController.loadUserPhotoPage);
+      routes.post('/user/photo/add',[authenization,validator.validatorForCreatePhoto()], photoController.createPhoto);
+      routes.post('/user/photo/delete',[authenization], photoController.deletePhotoByUser);
+      routes.get('/censor/photo',[authenization,censorAuthenization], photoController.loadCensorPhotoPage);
      /***
      * Catalogue management Page
      */

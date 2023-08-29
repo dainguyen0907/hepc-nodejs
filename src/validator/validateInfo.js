@@ -56,6 +56,11 @@ const validatorForCreateCatalogue=()=>{
         body("catalogue_name","Tên chuyên mục không quá 200 ký tự").isLength({max:200}),
     ]
 }
+const validatorForCreatePhoto=()=>{
+    return [
+        body("photo_content","Đường dẫn không được để trống").trim().not().isEmpty(),
+    ]
+}
 module.exports={
     validatorUpdateAccount,
     validatorForChangePassword,
@@ -64,5 +69,6 @@ module.exports={
     validatorForCreateDepartment,
     validatorForCreateVideo,
     validatorForCreateBanner,
-    validatorForCreateCatalogue
+    validatorForCreateCatalogue,
+    validatorForCreatePhoto,
 }

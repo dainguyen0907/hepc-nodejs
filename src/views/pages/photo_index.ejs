@@ -1,4 +1,9 @@
 <div class="row">
+    <%if(pageData[3]=="user"){%>
+    <div class="col-xl-3">
+        <a href="/" class="btn btn-primary mb-3" data-bs-toggle="modal" data-bs-target="#createPhotoModal">Thêm ảnh mới</a>
+    </div>
+    <%}%>
     <div class="col-xl-12">
         <%- include ('../message/messagebox') -%>
         <div class="card easion-card">
@@ -47,9 +52,14 @@
                                     <td class="text-danger">Chưa duyệt</td>
                                 <%}%>
                                 <td>
+                                    <%if(pageData[3]=="admin"||pageData[3]=="censor"){%>
+                                        <a class="btn btn-success text-white" title="Cập nhật hình ảnh" data-bs-toggle="modal" data-bs-target="#updatePhotoModal"
+                                        data-id="<%= photo.id%>" data-content="<%= photo.photo_content%>" data-status="<%= photo.photo_status%>" 
+                                        data-censor="<%= photo.photo_censor %>">
+                                            <i class="fas fa-edit"></i></a>
+                                    <%}%>
                                     <a class="btn btn-danger text-white" title="Xóa hình ảnh" data-bs-toggle="modal" data-bs-target="#deleteModal"
-                                    data-id="<%= photo.id %>">
-                                        <i class="fas fa-times"></i></a>
+                                    data-id="<%= photo.id %>"><i class="fas fa-times"></i></a>
                                 </td>
                             </tr>
                             <%});%>
@@ -59,3 +69,10 @@
         </div>
     </div>
 </div>
+<%if(pageData[3]=="user"){%>
+   <%- include('../modal/photo_create')-%>
+<%}%>
+<%- include('../modal/deleteModal')-%>
+<%if(pageData[3]=="admin"||pageData[3]=="censor"){%>
+    <%- include('../modal/photo_update')-%>
+ <%}%>

@@ -86,4 +86,39 @@ $(document).ready(function () {
       }
     });
   }
+
+var updatePhotoModal = document.getElementById('updatePhotoModal')
+  if (updatePhotoModal) {
+    updatePhotoModal.addEventListener('show.bs.modal', function (event) {
+      var button = event.relatedTarget
+      var id = button.getAttribute('data-id')
+      var content = button.getAttribute('data-content')
+      var department = button.getAttribute('data-department')
+      var status = button.getAttribute('data-status')
+      var censor = button.getAttribute('data-censor')
+      var object_id = updatePhotoModal.querySelector('#object_id')
+      var object_content = updatePhotoModal.querySelector("#photo_content")
+      var object_department = updatePhotoModal.querySelector("#photo_department")
+      var object_status_true = updatePhotoModal.querySelector("#photo_status_true")
+      var object_status_false = updatePhotoModal.querySelector("#photo_status_false")
+      var object_censor_true = updatePhotoModal.querySelector("#photo_censor_true")
+      var object_censor_false = updatePhotoModal.querySelector("#photo_censor_false")
+      object_id.value = id
+      object_content.value=content
+      if(object_department)
+      {
+        object_department.value=department
+      }
+      if (status == 1) {
+        object_status_true.setAttribute('checked', 'checked')
+      } else {
+        object_status_false.setAttribute('checked', 'checked')
+      }
+      if(censor==1){
+        object_censor_true.setAttribute('checked', 'checked')
+      } else {
+        object_censor_false.setAttribute('checked', 'checked')
+      }
+    });
+  }
 });
