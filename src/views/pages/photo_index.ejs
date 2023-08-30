@@ -55,7 +55,7 @@
                                     <%if(pageData[3]=="admin"||pageData[3]=="censor"){%>
                                         <a class="btn btn-success text-white" title="Cập nhật hình ảnh" data-bs-toggle="modal" data-bs-target="#updatePhotoModal"
                                         data-id="<%= photo.id%>" data-content="<%= photo.photo_content%>" data-status="<%= photo.photo_status%>" 
-                                        data-censor="<%= photo.photo_censor %>">
+                                        data-censor="<%= photo.photo_censor %>" <%if(pageData[3]=="admin"){%>data-department="<%=photo.id_department%>"<%}%>>
                                             <i class="fas fa-edit"></i></a>
                                     <%}%>
                                     <a class="btn btn-danger text-white" title="Xóa hình ảnh" data-bs-toggle="modal" data-bs-target="#deleteModal"

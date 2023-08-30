@@ -1,7 +1,8 @@
 import { createHistory } from "../services/historyService";
+import {countUncensorPhotoByDeparmentId} from "../services/photoService";
 require('dotenv').config();
 
-const loadMasterPage = (req, res, page, title, pageData, css, js) => {
+const loadMasterPage = async(req, res, page, title, pageData, css, js) => {
     return res.render('masterPage.ejs', {
         title: title,
         page: page,
@@ -11,6 +12,7 @@ const loadMasterPage = (req, res, page, title, pageData, css, js) => {
         pageData: pageData,
         css: css,
         js: js,
+        countPhoto: await countUncensorPhotoByDeparmentId(req.id_department)
     });
 }
 

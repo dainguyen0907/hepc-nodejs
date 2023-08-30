@@ -17,6 +17,17 @@ const getAllCatalogue = async () => {
     });
     return data;
 }
+
+const findCatalogueByDepartmentId=async(department_id)=>{
+    let data = await Catalogue.findAll({
+        raw: true,
+        nest: true,
+        where:{
+            id_department:department_id
+        }
+    });
+    return data;
+}
 const checkCatalogueName=async(id,name)=>{
     let data=null;
     if(id){
@@ -84,5 +95,6 @@ module.exports={
     checkCatalogueName,
     createCatalogue,
     updateCatalogue,
-    deleteCatalogue
+    deleteCatalogue,
+    findCatalogueByDepartmentId
 }

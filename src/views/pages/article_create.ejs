@@ -1,0 +1,50 @@
+<div class="container-fluid">
+    <%- include ('../message/messagebox') -%>
+    <div class="row">
+        <div class="col-xl-12">
+            <div class="card easion-card">
+                <div class="card-header">
+                    <div class="easion-card-icon">
+                        <i class="fas fa-chart-bar"></i>
+                    </div>
+                    <div class="easion-card-title"> <%=pageData[2]%></div>
+                </div>
+                <div class="p-3">
+                    <form action="<%=pageData[1].formAction%>" method="post" >
+                        <div class="form-row">
+                            <div class="form-group col-md-12">
+                                <label>Chuyên mục</label>
+                                <select name="article_catalogue" class="form-control">
+                                    <%pageData[3].forEach((catalogue,index)=>{%>
+                                        <option value="<%=catalogue.id%>" <%if%>><%=catalogue.catalogue_name%></option>
+                                    <%})%>
+                                </select>
+                            </div>
+                            <div class="form-group col-md-12">
+                                <label>Mở đầu</label>
+                                <input name="article_heading" type="text" class="form-control" placeholder="Nhập mở đầu" value="" required>
+                            </div>
+                            <div class="form-group col-md-12">
+                                <label>Tóm tắt</label>
+                                <textarea name="article_summarize" class="form-control" rows="5"></textarea>
+                            </div>
+                            <div class="form-group col-md-12">
+                                <label>Nội dung</label>
+                                <textarea name="article_content" class="form-control" rows="10" id="content"></textarea>
+                            </div>
+                            <div class="form-group col-md-12">
+                                <label>File nội dung (nếu cần)</label>
+                                <input type="text" class="form-control" name="article_file" placeholder="Đường dẫn file nội dung">
+                            </div>
+                            <div class="form-group col-md-12">
+                                <label>Ảnh đại diện (nếu cần)</label>
+                                <input type="text" class="form-control" name="article_image" placeholder="Đường dẫn ảnh">
+                            </div>
+                        </div>
+                        <button type="submit" class="btn btn-success">Thêm</button>
+                    </form>
+                </div>
+            </div>
+        </div>
+    </div>
+</div>

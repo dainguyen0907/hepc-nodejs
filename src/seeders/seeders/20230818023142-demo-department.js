@@ -53,7 +53,6 @@ module.exports = {
         department_name: 'Khoa Kỹ thuật cơ sở',
         department_status:'1'
       },
-
       {
         department_name: 'Khoa Điện công nghiệp',
         department_status:'1'

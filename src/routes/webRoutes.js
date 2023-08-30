@@ -11,7 +11,7 @@ import videoController from "../controllers/videoController";
 import bannerController from "../controllers/bannerController";
 import photoController from "../controllers/photoController";
 import catalogueController from "../controllers/catalogueController";
-
+import articleController from "../controllers/articleController";
 const routes = express.Router();
 
 /**
@@ -134,6 +134,7 @@ const initWebRoutes = (app) => {
       routes.post('/user/photo/add',[authenization,validator.validatorForCreatePhoto()], photoController.createPhoto);
       routes.post('/user/photo/delete',[authenization], photoController.deletePhotoByUser);
       routes.get('/censor/photo',[authenization,censorAuthenization], photoController.loadCensorPhotoPage);
+      routes.get('/uncensor/photo',[authenization], photoController.loadUncensorPhotoPage);
      /***
      * Catalogue management Page
      */
@@ -141,7 +142,12 @@ const initWebRoutes = (app) => {
     routes.post('/catalogue/add',[authenization,adminAuthenization,validator.validatorForCreateCatalogue()], catalogueController.createCatalogue);
     routes.post('/catalogue/delete',[authenization,adminAuthenization], catalogueController.deleteCatalogue);
     routes.post('/catalogue/update',[authenization,adminAuthenization,validator.validatorForCreateCatalogue()], catalogueController.updateCatalogue);
-     
+     /***
+     * Catalogue management Page
+     */
+     routes.get('/user/article/add',[authenization], articleController.loadCreateArticlePage);
+     routes.post('/article/add',[authenization], articleController.createArticle);
+     routes.get('/article',[authenization,adminAuthenization], articleController.loadIndexPage);
     /***
      * Set 404 page
      */
