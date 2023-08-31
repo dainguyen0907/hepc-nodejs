@@ -12,36 +12,44 @@
                 <div class="p-3">
                     <form action="<%=pageData[1].formAction%>" method="post" >
                         <div class="form-row">
+                            <%if(pageData[4]){%>
+                                <input type="hidden" name="id" value="<%=pageData[4].id%>">
+                            <%}%>
                             <div class="form-group col-md-12">
                                 <label>Chuyên mục</label>
                                 <select name="article_catalogue" class="form-control">
                                     <%pageData[3].forEach((catalogue,index)=>{%>
-                                        <option value="<%=catalogue.id%>" <%if%>><%=catalogue.catalogue_name%></option>
+                                        <option value="<%=catalogue.id%>" <%if(pageData[4]){if(pageData[4].id_catalogue==catalogue.id){%>selected<%} }%>><%=catalogue.catalogue_name%></option>
                                     <%})%>
                                 </select>
                             </div>
                             <div class="form-group col-md-12">
                                 <label>Mở đầu</label>
-                                <input name="article_heading" type="text" class="form-control" placeholder="Nhập mở đầu" value="" required>
+                                <input name="article_heading" type="text" class="form-control" placeholder="Nhập mở đầu"
+                                <%if(pageData[4]){%> value="<%=pageData[4].article_heading%>"<%}%> required>
                             </div>
                             <div class="form-group col-md-12">
                                 <label>Tóm tắt</label>
-                                <textarea name="article_summarize" class="form-control" rows="5"></textarea>
+                                <textarea name="article_summarize" class="form-control" rows="5"><%if(pageData[4]){%> <%= pageData[4].article_summarize%><%}%></textarea>
                             </div>
                             <div class="form-group col-md-12">
                                 <label>Nội dung</label>
-                                <textarea name="article_content" class="form-control" rows="10" id="content"></textarea>
+                                <textarea name="article_content" class="form-control" rows="50" id="content"><%if(pageData[4]){%> <%= pageData[4].article_content%><%}%></textarea>
                             </div>
                             <div class="form-group col-md-12">
                                 <label>File nội dung (nếu cần)</label>
-                                <input type="text" class="form-control" name="article_file" placeholder="Đường dẫn file nội dung">
+                                <input type="text" class="form-control" name="article_file" placeholder="Đường dẫn file nội dung" <%if(pageData[4]){%> value="<%=pageData[4].article_file%>"<%}%>>
                             </div>
                             <div class="form-group col-md-12">
                                 <label>Ảnh đại diện (nếu cần)</label>
-                                <input type="text" class="form-control" name="article_image" placeholder="Đường dẫn ảnh">
+                                <input type="text" class="form-control" name="article_image" placeholder="Đường dẫn ảnh" <%if(pageData[4]){%> value="<%=pageData[4].article_image%>"<%}%>>
+                            </div>
+                            <div class="form-group col-md-12">
+                                <label>Lượt xem</label>
+                                <input type="number" class="form-control" name="article_view" <%if(pageData[4]){%> value="<%=pageData[4].article_view%>"<%}%>>
                             </div>
                         </div>
-                        <button type="submit" class="btn btn-success">Thêm</button>
+                        <button type="submit" class="btn btn-success"><%if(pageData[0]=="create"){%>Thêm<%}else{%>Cập nhật<%}%></button>
                     </form>
                 </div>
             </div>

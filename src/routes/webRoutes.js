@@ -148,6 +148,13 @@ const initWebRoutes = (app) => {
      routes.get('/user/article/add',[authenization], articleController.loadCreateArticlePage);
      routes.post('/article/add',[authenization], articleController.createArticle);
      routes.get('/article',[authenization,adminAuthenization], articleController.loadIndexPage);
+     routes.get('/censor/article',[authenization,censorAuthenization], articleController.loadArticlePageForCensor);
+     routes.post('/article/censor',[authenization,censorAuthenization], articleController.censorArticle);
+     routes.get('/uncensor/article',[authenization,censorAuthenization], articleController.loadArticlePageForUncensor);
+     routes.get('/user/article',[authenization], articleController.loadArticlePageForUser);
+     routes.get('/article/:id',[authenization], articleController.loadDetailArticlePage);
+     routes.post('/article/update',[authenization], articleController.updateArticle);
+     routes.post('/article/delete',[authenization], articleController.deleteArticle);
     /***
      * Set 404 page
      */

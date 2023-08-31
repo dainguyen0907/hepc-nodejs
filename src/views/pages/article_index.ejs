@@ -1,5 +1,6 @@
 <div class="row">
-    <div class="col-xl-3">
+    <%if(pageData[3]=="admin"){%>
+    <div class="col-xl-3 mb-3">
         <select name="article_catalogue" class="form-control">
             <option value="-1">Tất cả</option>
             <%pageData[1].forEach((department,index)=>{%>
@@ -7,6 +8,7 @@
             <%})%>
         </select>
     </div>
+    <%}%>
     <div class="col-xl-12">
         <%- include ('../message/messagebox') -%>
         <div class="card easion-card">
@@ -55,20 +57,27 @@
                                     <td class="text-danger">Vô hiệu hóa</td>
                                 <%}%>
                                 <% if(article.article_censor==1){%>
-                                    <td class="text-success">Chưa duyệt</td>
+                                    <td class="text-success">Đã duyệt</td>
                                 <% }else{%>
-                                    <td class="text-danger">Đã duyệt</td>
+                                    <td class="text-danger">Chưa duyệt</td>
                                 <%}%>
                                 <td>
                                     <%= article.updatedAt.getDate()%>/<%= article.updatedAt.getMonth()%>/<%= article.updatedAt.getFullYear()%> -<%= 
                                     article.updatedAt.getHours()%>:<%= article.updatedAt.getMinutes()%>:<%= article.updatedAt.getSeconds()%>
                                 </td>
                                 <td>
-                                    <a class="btn btn-success text-white" title="Cập nhật bài viết">
+                                    <%if(pageData[3]!="uncensor"){%>
+                                    <a class="btn btn-success text-white mb-2" title="Cập nhật bài viết" onclick="window.open('/article/<%= article.id%>','update','width=1000,height=500')">
                                         <i class="fas fa-edit"></i></a>
-                                    <a class="btn btn-danger text-white" title="Xóa bài viết" data-bs-toggle="modal" data-bs-target="#deleteModal"
+                                    <a class="btn btn-danger text-white mb-2" title="Xóa bài viết" data-bs-toggle="modal" data-bs-target="#deleteModal"
                                     data-id="<%= article.id %>">
-                                        <i class="fas fa-times"></i></a>
+                                        <i class="fas fa-trash"></i></a>
+                                    <%}%>
+                                    <%if(pageData[3]!="user"&&article.article_censor==0){%>
+                                    <a class="btn btn-primary text-white mb-2" title="Duyệt bài viết" data-bs-toggle="modal" data-bs-target="#censorArticleModal"
+                                    data-id="<%= article.id %>">
+                                        <i class="fas fa-check"></i></a>
+                                    <%}%>
                                 </td>
                             </tr>
                             <%});%>
@@ -79,3 +88,6 @@
     </div>
 </div>
 <%- include('../modal/deleteModal') -%>
+<%if(pageData[3]!="user"){%>
+    <%- include('../modal/article_censor') -%>
+<%}%>

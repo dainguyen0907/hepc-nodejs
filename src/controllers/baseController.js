@@ -1,5 +1,6 @@
 import { createHistory } from "../services/historyService";
 import {countUncensorPhotoByDeparmentId} from "../services/photoService";
+import {countUncensorArticle} from "../services/articleService";
 require('dotenv').config();
 
 const loadMasterPage = async(req, res, page, title, pageData, css, js) => {
@@ -12,7 +13,8 @@ const loadMasterPage = async(req, res, page, title, pageData, css, js) => {
         pageData: pageData,
         css: css,
         js: js,
-        countPhoto: await countUncensorPhotoByDeparmentId(req.id_department)
+        countPhoto: await countUncensorPhotoByDeparmentId(req.id_department),
+        countArticle: await countUncensorArticle(req.id_department)
     });
 }
 

@@ -47,16 +47,16 @@
                             <a href="/history" class="dash-nav-dropdown-item">Nhật ký</a>
                         </div>
                     </div>
-                    <% }%>
+                <% }%>
                         <div class="dash-nav-dropdown ">
                             <a href="#!" class="dash-nav-item dash-nav-dropdown-toggle">
                                 <i class="fas fa-newspaper"></i> Bài viết </a>
                             <div class="dash-nav-dropdown-menu">
-                                <a href="" class="dash-nav-dropdown-item">Bài viết của tôi</a>
+                                <a href="/user/article" class="dash-nav-dropdown-item">Bài viết của tôi</a>
                                 <%if(user_role==1||user_role==2){%>
-                                    <a href="" class="dash-nav-dropdown-item">Bài viết phòng ban</a>
-                                    <%}%>
-                                        <a href="/user/article/add" class="dash-nav-dropdown-item">Thêm mới bài viết</a>
+                                    <a href="/censor/article" class="dash-nav-dropdown-item">Bài viết phòng ban</a>
+                                <%}%>
+                                    <a href="/user/article/add" class="dash-nav-dropdown-item">Thêm mới bài viết</a>
                             </div>
                         </div>
                         <div class="dash-nav-dropdown">
@@ -66,19 +66,19 @@
                                 <a href="/user/photo" class="dash-nav-dropdown-item">Ảnh của tôi</a>
                                 <%if(user_role==1||user_role==2){%>
                                     <a href="/censor/photo" class="dash-nav-dropdown-item">Ảnh phòng ban</a>
-                                    <%}%>
+                                <%}%>
                             </div>
                         </div>
                         <%if(user_role==1||user_role==2){%>
                             <div class="dash-nav-dropdown">
                                 <a href="#!" class="dash-nav-item dash-nav-dropdown-toggle position-relative">
-                                    <%if(countPhoto>0){%>
+                                    <%if(countPhoto>0||countArticle>0){%>
                                         <span
                                             class="position-absolute top-50 start-100 translate-middle p-2 bg-danger border border-light rounded-circle">
                                             <span class="visually-hidden">New alerts</span>
                                         </span>
-                                        <%}%>
-                                            <i class="fas fa-user-check"></i> Kiểm duyệt
+                                    <%}%>
+                                        <i class="fas fa-user-check"></i> Kiểm duyệt
                                 </a>
                                 <div class="dash-nav-dropdown-menu">
                                     <a href="/uncensor/photo" class="dash-nav-dropdown-item">
@@ -86,10 +86,17 @@
                                             <span class="translate-middle badge rounded-pill bg-danger">
                                                 <%=countPhoto%>
                                             </span>
-                                            <%}%>
+                                        <%}%>
                                                 Ảnh hoạt động
                                     </a>
-                                    <a href="" class="dash-nav-dropdown-item">Bài viết mới</a>
+                                    <a href="/uncensor/article" class="dash-nav-dropdown-item">
+                                        <%if(countArticle>0){%>
+                                            <span class="translate-middle badge rounded-pill bg-danger">
+                                                <%=countArticle%>
+                                            </span>
+                                        <%}%>
+                                        Bài viết mới
+                                    </a>
                                 </div>
                             </div>
                             <%}%>

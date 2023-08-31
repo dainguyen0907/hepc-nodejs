@@ -121,4 +121,13 @@ var updatePhotoModal = document.getElementById('updatePhotoModal')
       }
     });
   }
+  var censorArticleModal = document.getElementById('censorArticleModal')
+  if (censorArticleModal) {
+    censorArticleModal.addEventListener('show.bs.modal', function (event) {
+      var button = event.relatedTarget
+      var id = button.getAttribute('data-id')
+      var object_id = censorArticleModal.querySelector('#object_id')
+      object_id.value = id
+    });
+  }
 });
