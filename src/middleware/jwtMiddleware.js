@@ -5,7 +5,7 @@ const createJWT = (payload) => {
     let key= process.env.JWTPKEY;
     let token=null;
     try{
-        token = jwt.sign(payload,key,{ expiresIn: '1h' });
+        token = jwt.sign(payload,key,{ expiresIn: '2h' });
     }catch(err){
         console.log(err);
     }

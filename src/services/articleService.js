@@ -4,10 +4,13 @@ import { Op } from "sequelize";
 const Article = db.Article;
 const Catalogue = db.catalogue;
 const User = db.User;
+const Department=db.Department;
 Article.belongsTo(Catalogue, { foreignKey: 'id_catalogue' });
 Catalogue.hasMany(Article, { foreignKey: 'id' });
 Article.belongsTo(User, { foreignKey: 'id_user' });
 User.hasMany(Article, { foreignKey: 'id' });
+Catalogue.belongsTo(Department,{foreignKey:'id_department'});
+Department.hasMany(Catalogue,{foreignKey:'id'});
 
 const createArticle = async (article) => {
     try {
@@ -159,6 +162,27 @@ const countUncensorArticle=async (department_id)=>{
     return countData;
 }
 
+const findArticleByDepartmentId=async(department_id)=>{
+    if(department_id==-1)
+    {
+        return await Article.findAll({
+            include:[Catalogue,User],
+            raw: true,
+            nest: true,
+        })
+    }
+    return await Article.findAll({
+        include:[{
+            model:Catalogue,
+            where:{
+                id_department:department_id
+            }
+        },User],
+        raw: true,
+        nest: true,
+    })
+}
+
 module.exports = {
     createArticle,
     getAllArticle,
@@ -170,5 +194,6 @@ module.exports = {
     findArticleById,
     updateArticle,
     deleteArticle,
-    countUncensorArticle
+    countUncensorArticle,
+    findArticleByDepartmentId,
 }

@@ -26,7 +26,7 @@ const loadIndexPage = async (req, res) => {
     let modal = { title: "Xóa bài viết", objectName: "bài viết", formAction: "/article/delete" }
     let pageData = [dataArticle, department, modal,type];
     let css = ["https://cdn.datatables.net/v/bs5/dt-1.13.6/datatables.min.css"];
-    let js = ["https://cdn.datatables.net/v/bs5/jq-3.7.0/dt-1.13.6/datatables.min.js", '/js/initDatatable.js', '/js/modal_init.js'];
+    let js = ["https://cdn.datatables.net/v/bs5/jq-3.7.0/dt-1.13.6/datatables.min.js", '/js/initDatatable.js', '/js/modal_init.js','/js/ajax.js'];
     return baseController.loadMasterPage(req, res, page, title, pageData, css, js);
 }
 
@@ -238,6 +238,39 @@ const deleteArticle=async(req,res)=>{
 
 }
 
+const getDataTableFromSelectedBox=async(req,res)=>{
+    let id_department=req.body.department_id;
+    let article= await articleService.findArticleByDepartmentId(id_department);
+    let stringData="<thead class='table-primary'><tr><th>ID</th><th>Chuyên mục</th><th>Tựa đề</th><th>Tác giả</th><th>Lượt xem</th><th>Trạng thái</th><th>Tình trạng</th><th>Cập nhật lần cuối</th><tbody>";    
+    article.forEach((a,index)=> {
+        stringData+="<tr><td>"+a.id+"</td><td>"+a.catalogue.catalogue_name+"</td><td>"+a.article_heading+"</td><td>"+a.User.user_name+
+        "</td><td>"+a.article_view+"</td>";
+        if(a.article_status==1)
+        {
+            stringData+="<td class='text-success'>Đang sử dụng</td>";
+        }else{
+            stringData+="<td class='text-danger'>Vô hiệu hóa</td>";
+        }
+        if(a.article_censor==1)
+        {
+            stringData+="<td class='text-success'>Đã duyệt</td>";
+        }else{
+            stringData+="<td class='text-danger'>Chưa duyệt</td>";
+        }
+        stringData+="<td>"+a.updatedAt.getDate()+"/"+ a.updatedAt.getMonth()+"/"+ a.updatedAt.getFullYear()+" "+ 
+        a.updatedAt.getHours()+":"+ a.updatedAt.getMinutes()+":"+ a.updatedAt.getSeconds()+"</td><td>"+
+        `<a class='btn btn-success text-white mb-2' title='Cập nhật bài viết' onclick="window.open('/article/`+a.id+`','update','width=1000,height=500')"><i class='fas fa-edit'></i></a><a class='btn btn-danger text-white mb-2' title='Xóa bài viết' data-bs-toggle='modal' data-bs-target='#deleteModal'data-id='`+
+        a.id+"'><i class='fas fa-trash'></i></a>";
+        if(a.article_censor!=1)
+        {
+            stringData+="<a class='btn btn-primary text-white mb-2' title='Duyệt bài viết' data-bs-toggle='modal' data-bs-target='#censorArticleModal' data-id='"+a.id+"'><i class='fas fa-check'></i></a>";
+        }
+        stringData+="</td></tr>";
+    });
+    stringData+="</tbody>";
+    return res.send({"strData":stringData});
+}
+
 module.exports = {
     loadCreateArticlePage,
     loadArticlePageForCensor,
@@ -249,4 +282,5 @@ module.exports = {
     updateArticle,
     deleteArticle,
     censorArticle,
+    getDataTableFromSelectedBox,
 }

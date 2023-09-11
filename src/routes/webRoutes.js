@@ -155,6 +155,10 @@ const initWebRoutes = (app) => {
      routes.get('/article/:id',[authenization], articleController.loadDetailArticlePage);
      routes.post('/article/update',[authenization], articleController.updateArticle);
      routes.post('/article/delete',[authenization], articleController.deleteArticle);
+      /***
+     * load Ajax
+     */
+    routes.post('/ajax/getDatatableFromSelectBox',[authenization,adminAuthenization],articleController.getDataTableFromSelectedBox);
     /***
      * Set 404 page
      */
