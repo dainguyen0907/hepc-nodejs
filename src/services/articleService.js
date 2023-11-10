@@ -29,6 +29,21 @@ const getAllArticle = async () => {
     });
 }
 
+const getArticle = async (id_catalogue,limit, offset) => {
+    return await Article.findAll({
+        where:{
+            id_catalogue:id_catalogue,
+            article_censor:1,
+            article_status:1,
+        },
+        order:[
+            ['createdAt','DESC']
+        ],
+        limit:limit,
+        offset:offset,
+    });
+}
+
 const getAllArticleByDeparmentId = async (department_id) => {
     return await Article.findAll({
         include: [{
@@ -196,4 +211,5 @@ module.exports = {
     deleteArticle,
     countUncensorArticle,
     findArticleByDepartmentId,
+    getArticle,
 }

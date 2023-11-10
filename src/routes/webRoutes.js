@@ -12,6 +12,7 @@ import bannerController from "../controllers/bannerController";
 import photoController from "../controllers/photoController";
 import catalogueController from "../controllers/catalogueController";
 import articleController from "../controllers/articleController";
+import apiController from "../controllers/apiController";
 const routes = express.Router();
 
 /**
@@ -159,6 +160,9 @@ const initWebRoutes = (app) => {
      * load Ajax
      */
     routes.post('/ajax/getDatatableFromSelectBox',[authenization,adminAuthenization],articleController.getDataTableFromSelectedBox);
+    
+    routes.get('/api/hot-articles',apiController.getHomePageArticles);
+    routes.get('/api/hot-anouncements',apiController.getHomePageAnouncements);
     /***
      * Set 404 page
      */
