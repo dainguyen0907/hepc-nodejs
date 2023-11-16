@@ -5,6 +5,7 @@ import bodyParser from "body-parser";
 import cookieParser from "cookie-parser";
 import session from "express-session";
 import flash from "connect-flash";
+import initApiRoutes from "./routes/apiRoutes";
 require('dotenv').config;
 
 const app=Express();
@@ -50,6 +51,7 @@ initViewEngine(app);
 /**
  * Khởi tạo router
  */
+initApiRoutes(app);
 initWebRoutes(app);
 
 

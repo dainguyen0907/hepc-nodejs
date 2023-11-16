@@ -10,8 +10,14 @@ const getHomePageAnouncements=async(req,res)=>{
     return res.json(article);
 }
 
+const getArticleDetail=async(req,res)=>{
+    let article=await articleService.findArticleByLinkForApi(req.params.link);
+    return res.json(article);
+}
+
 
 module.exports={
     getHomePageArticles,
     getHomePageAnouncements,
+    getArticleDetail,
 };

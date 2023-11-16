@@ -99,6 +99,21 @@ const findArticleById = async (article_id) => {
     return null;
 }
 
+const findArticleByLinkForApi = async (article_link) => {
+    let article = await Article.findOne({
+        where: {
+            article_link:article_link,
+            article_censor:'1',
+            article_status:'1',
+        },
+
+    })
+    if (article) {
+        return article.get({ plain: true });
+    }
+    return null;
+}
+
 
 const checkArticleDepend = async (article_id, department_id, user_id) => {
     let article = await findArticleById(article_id);
@@ -207,6 +222,7 @@ module.exports = {
     checkArticleDepend,
     checkArticleCensor,
     findArticleById,
+    findArticleByLinkForApi,
     updateArticle,
     deleteArticle,
     countUncensorArticle,
