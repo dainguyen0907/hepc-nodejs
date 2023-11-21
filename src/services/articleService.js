@@ -86,6 +86,21 @@ const getAllArticleByUserId = async (user_id) => {
     });
 }
 
+const getMoreArticle = async (article_id,catalogue_id)=>{
+    return await Article.findAll({
+        where:{
+            id:{[Op.ne]:article_id},
+            id_catalogue:catalogue_id,
+            article_censor:1,
+            article_status:1,
+        },
+        order:[
+            ['createdAt','DESC']
+        ],
+        limit:4,
+    });
+}
+
 const findArticleById = async (article_id) => {
     let article = await Article.findOne({
         where: {
@@ -219,6 +234,7 @@ module.exports = {
     getAllArticleByDeparmentId,
     getAllUncensorArticleByDeparmentId,
     getAllArticleByUserId,
+    getMoreArticle,
     checkArticleDepend,
     checkArticleCensor,
     findArticleById,
